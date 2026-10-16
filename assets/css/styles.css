@@ -1,0 +1,28 @@
+.container {
+    padding: 32px 100px;
+}
+
+.header {
+    margin-bottom: 32px;
+    ;
+}
+
+.header-text {
+    font-size: 2rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+.books-header,
+.book {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    align-items: center;
+    border-bottom: 1px solid #808080;
+}
+
+.label {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
