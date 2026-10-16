@@ -1,18 +1,16 @@
 const myLibrary = [];
+const darkhold = new Book("Darkhold", "Morgan le Fay", 224, false);
+const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, false);
+
+let bookList = document.querySelector(".books-list");
 
 function Book(title, author, pages, hasRead) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.hasRead = hasRead;
-    this.id = function() {
+    this.id = function () {
         return this.id.crypto.randomUUID();
-    }
-
-    this.info = function() {
-        return !this.hasRead ?
-        `${this.title} by ${this.author}, ${this.pages} pages, not read yet` :
-        `${this.title} by ${this.author}, ${this.pages} pages, finished`;
     }
 }
 
@@ -20,12 +18,35 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
-const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
-const darkhold = new Book("Darkhold", "Morgan le Fay", 224, false);
-const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, false);
+function displayBooks() {
+    for (books of myLibrary) {
+        let book = document.createElement("div");
+        let title = document.createElement("div");
+        let author = document.createElement("div");
+        let pages = document.createElement("div");
+        let status = document.createElement("div");
 
-addBookToLibrary(theHobbit);
+        title.textContent = books.title;
+        author.textContent = books.author;
+        pages.textContent = books.pages;
+        status.textContent = books.hasRead ? "Has read" : "Not read yet";
+
+        book.classList.add("book");
+        title.classList.add("title");
+        author.classList.add("author");
+        pages.classList.add("pages");
+        status.classList.add("status");
+
+        book.appendChild(title);
+        book.appendChild(author);
+        book.appendChild(pages);
+        book.appendChild(status);
+
+        bookList.appendChild(book);
+    }
+}
+
 addBookToLibrary(darkhold);
 addBookToLibrary(bookOfVishanti)
 
-console.table(myLibrary);
+displayBooks();
