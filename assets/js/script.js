@@ -35,7 +35,7 @@ statusForm.addEventListener("submit", (e) => {
     const book = myLibrary.find((item) => item.id === selectedBookId);
 
     if (book && dialogStatus) {
-        book.status = dialogStatus.value;
+        book.changeStatus(dialogStatus.value);
     }
 
     statusForm.reset();
@@ -58,9 +58,8 @@ function Book(title, author, pages, status) {
     this.id = crypto.randomUUID();
 }
 
-Book.prototype.changeStatus = function () {
-    const dialogStatus = document.querySelector("input[name='status']:checked");
-    return dialogStatus.value;
+Book.prototype.changeStatus = function (newStatus) {
+    this.status = newStatus;
 }
 
 function addBookToLibrary(book) {
