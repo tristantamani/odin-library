@@ -1,20 +1,40 @@
 const myLibrary = [];
-const darkhold = new Book("Darkhold", "Morgan le Fay", 224, false);
-const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, false);
+const darkhold = new Book("Darkhold", "Morgan le Fay", 224, "unread");
+const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, "unread");
 
 const bookList = document.querySelector(".books-list");
 const addButton = document.querySelector(".add-button")
+const form = document.querySelector("form");
 const dialog = document.querySelector("dialog");
-const closeButton = document.querySelector("dialog button");
+const closeButton = document.querySelector(".cancel");
+const submitButton = document.querySelector(".submit")
+const dialogTitle = document.querySelector("#title");
+const dialogAuthor = document.querySelector("#author");
+const dialogPages = document.querySelector("#pages");
 
 addButton.addEventListener("click", () => dialog.showModal());
-closeButton.addEventListener("click", () => dialog.close());
+closeButton.addEventListener("click", () => {
+    form.reset()
+    dialog.close()
+});
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    createNewBook();
+    form.reset();
+    dialog.close();
+});
+dialog.addEventListener("cancel", () => dialog.returnValue = "cancelEvent");
 
-function Book(title, author, pages, hasRead) {
+addBookToLibrary(darkhold);
+addBookToLibrary(bookOfVishanti)
+
+displayBooks();
+
+function Book(title, author, pages, status) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.hasRead = hasRead;
+    this.status = status;
     this.id = function () {
         return this.id.crypto.randomUUID();
     }
@@ -25,6 +45,12 @@ function addBookToLibrary(book) {
 }
 
 function displayBooks() {
+    let child = bookList.lastElementChild;
+    while (child) {
+        bookList.removeChild(child);
+        child = bookList.lastElementChild;
+    }
+
     for (books of myLibrary) {
         let book = document.createElement("div");
         let title = document.createElement("div");
@@ -35,7 +61,18 @@ function displayBooks() {
         title.textContent = books.title;
         author.textContent = books.author;
         pages.textContent = books.pages;
-        status.textContent = books.hasRead ? "Has read" : "Not read yet";
+        
+        switch(books.status) {
+            case "unread":
+                status.textContent = "Not read yet";
+                break;
+            case "reading":
+                status.textContent = "Currently reading";
+                break;
+            case "finished":
+                status.textContent = "Finished";
+                break;
+        }
 
         book.classList.add("book");
         title.classList.add("title");
@@ -52,7 +89,14 @@ function displayBooks() {
     }
 }
 
-addBookToLibrary(darkhold);
-addBookToLibrary(bookOfVishanti)
+function createNewBook() {
+    const dialogStatus = document.querySelector("input[name='status']:checked");
 
-displayBooks();
+    let title = dialogTitle.value;
+    let author = dialogAuthor.value;
+    let pages = dialogPages.value;
+    let status = dialogStatus.value;
+    let newBook = new Book(title, author, pages, status);
+    addBookToLibrary(newBook);
+    displayBooks();
+}

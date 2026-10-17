@@ -31,7 +31,7 @@
             </div>
 
             <dialog>
-                <form>
+                <form action="index.html" method="POST">
                     <div class="form-header">
                         Add New Book
                     </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="input">
                         <label for="pages">Pages</label>
-                        <input type="text" inputmode="numeric" name="pages" id="pages" placeholder="32">
+                        <input type="text" inputmode="numeric" name="pages" id="pages" placeholder="32" required>
                     </div>
                     <div class="input">
                         <fieldset>
@@ -71,8 +71,8 @@
                     </div>
 
                     <div class="button">
-                        <button class="cancel" autofocus>Cancel</button>
-                        <button class="submit" autofocus>Add Book</button>
+                        <button class="cancel" type="button">Cancel</button>
+                        <button class="submit" type="submit">Add Book</button>
                     </div>
                 </form>
             </dialog>
