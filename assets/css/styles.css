@@ -115,3 +115,12 @@ button {
 .submit {
     background-color: rebeccapurple;
 }
+
+.remove-button {
+    background-color: palevioletred;
+    width: 80%;
+}
+
+.remove-button:hover {
+    background-color: rgb(245, 130, 169);
+}

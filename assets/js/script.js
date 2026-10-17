@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 const darkhold = new Book("Darkhold", "Morgan le Fay", 224, "unread");
 const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, "unread");
 
@@ -35,9 +35,7 @@ function Book(title, author, pages, status) {
     this.author = author;
     this.pages = pages;
     this.status = status;
-    this.id = function () {
-        return this.id.crypto.randomUUID();
-    }
+    this.id = crypto.randomUUID();
 }
 
 function addBookToLibrary(book) {
@@ -57,12 +55,23 @@ function displayBooks() {
         let author = document.createElement("div");
         let pages = document.createElement("div");
         let status = document.createElement("div");
+        let actions = document.createElement("div");
+        let removeButton = document.createElement("button");
+
+        book.setAttribute("data-id", books.id)
+
+        removeButton.addEventListener("click", () => {
+            let bookId = book.getAttribute("data-id");
+            myLibrary = myLibrary.filter(item => item.id != bookId);
+            displayBooks();
+        });
 
         title.textContent = books.title;
         author.textContent = books.author;
         pages.textContent = books.pages;
-        
-        switch(books.status) {
+        removeButton.textContent = "Remove Book";
+
+        switch (books.status) {
             case "unread":
                 status.textContent = "Not read yet";
                 break;
@@ -79,11 +88,15 @@ function displayBooks() {
         author.classList.add("author");
         pages.classList.add("pages");
         status.classList.add("status");
+        actions.classList.add("actions");
+        removeButton.classList.add("remove-button")
 
         book.appendChild(title);
         book.appendChild(author);
         book.appendChild(pages);
         book.appendChild(status);
+        actions.appendChild(removeButton);
+        book.appendChild(actions);
 
         bookList.appendChild(book);
     }
