@@ -8,8 +8,6 @@ dialog {
 }
 
 form {
-    width: 280px;
-    height: 420px;
     padding: 16px 8px;
     display: flex;
     flex-direction: column;
@@ -60,7 +58,7 @@ button {
 .book {
     padding: 16px;
     display: grid;
-    grid-template-columns: 1.5fr repeat(4, 1fr);
+    grid-template-columns: 1.5fr repeat(2, 1fr) repeat(2, 1.5fr);
     align-items: center;
     border-bottom: 1px solid #808080;
 }
@@ -89,6 +87,10 @@ button {
     }
 }
 
+.book-dialog form {
+    width: 280px;
+    height: 420px;
+}
 
 .form-header {
     font-size: 1.5rem;
@@ -123,4 +125,18 @@ button {
 
 .remove-button:hover {
     background-color: rgb(245, 130, 169);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.status-dialog form {
+    gap: 16px;
+}
+
+.edit-button {
+    background-color: darkcyan;
 }

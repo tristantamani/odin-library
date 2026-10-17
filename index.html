@@ -30,7 +30,7 @@
                 <button>Add New Book</button>
             </div>
 
-            <dialog>
+            <dialog class="book-dialog">
                 <form action="index.html" method="POST">
                     <div class="form-header">
                         Add New Book
@@ -73,6 +73,36 @@
                     <div class="button">
                         <button class="cancel" type="button">Cancel</button>
                         <button class="submit" type="submit">Add Book</button>
+                    </div>
+                </form>
+            </dialog>
+
+            <dialog class="status-dialog">
+                <form action="index.html" method="POST">
+                    <div class="input">
+                        <fieldset>
+                            <legend>Reading Status</legend>
+
+                            <div>
+                                <input type="radio" id="unread" name="status" value="unread" checked />
+                                <label for="unread" class="radio-item">Not read yet</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="reading" name="status" value="reading" />
+                                <label for="reading" class="radio-item">Currently reading</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="finished" name="status" value="finished" />
+                                <label for="finished" class="radio-item">Finished</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="button">
+                        <button class="cancel" type="button">Cancel</button>
+                        <button class="submit" type="submit">Save</button>
                     </div>
                 </form>
             </dialog>

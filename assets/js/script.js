@@ -1,29 +1,49 @@
 let myLibrary = [];
+let selectedBookId = null;
 const darkhold = new Book("Darkhold", "Morgan le Fay", 224, "unread");
 const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, "unread");
 
 const bookList = document.querySelector(".books-list");
 const addButton = document.querySelector(".add-button")
-const form = document.querySelector("form");
-const dialog = document.querySelector("dialog");
+const bookForm = document.querySelector(".book-dialog form");
+const statusForm = document.querySelector(".status-dialog form");
+const bookDialog = document.querySelector(".book-dialog");
+const statusDialog = document.querySelector(".status-dialog");
 const closeButton = document.querySelector(".cancel");
 const submitButton = document.querySelector(".submit")
 const dialogTitle = document.querySelector("#title");
 const dialogAuthor = document.querySelector("#author");
 const dialogPages = document.querySelector("#pages");
 
-addButton.addEventListener("click", () => dialog.showModal());
+addButton.addEventListener("click", () => bookDialog.showModal());
+
 closeButton.addEventListener("click", () => {
-    form.reset()
-    dialog.close()
+    bookForm.reset();
+    bookDialog.close();
 });
-form.addEventListener("submit", (e) => {
+
+bookForm.addEventListener("submit", (e) => {
     e.preventDefault();
     createNewBook();
-    form.reset();
-    dialog.close();
+    bookForm.reset();
+    bookDialog.close();
 });
-dialog.addEventListener("cancel", () => dialog.returnValue = "cancelEvent");
+
+statusForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const dialogStatus = statusForm.querySelector("input[name='status']:checked");
+    const book = myLibrary.find((item) => item.id === selectedBookId);
+
+    if (book && dialogStatus) {
+        book.status = dialogStatus.value;
+    }
+
+    statusForm.reset();
+    statusDialog.close();
+    selectedBookId = null;
+
+    displayBooks();
+});
 
 addBookToLibrary(darkhold);
 addBookToLibrary(bookOfVishanti)
@@ -38,6 +58,11 @@ function Book(title, author, pages, status) {
     this.id = crypto.randomUUID();
 }
 
+Book.prototype.changeStatus = function () {
+    const dialogStatus = document.querySelector("input[name='status']:checked");
+    return dialogStatus.value;
+}
+
 function addBookToLibrary(book) {
     myLibrary.push(book);
 }
@@ -49,7 +74,7 @@ function displayBooks() {
         child = bookList.lastElementChild;
     }
 
-    for (books of myLibrary) {
+    for (const books of myLibrary) {
         let book = document.createElement("div");
         let title = document.createElement("div");
         let author = document.createElement("div");
@@ -57,8 +82,16 @@ function displayBooks() {
         let status = document.createElement("div");
         let actions = document.createElement("div");
         let removeButton = document.createElement("button");
+        let editButton = document.createElement("button");
 
-        book.setAttribute("data-id", books.id)
+        const cancelButton = document.querySelector(".status-dialog .cancel");
+
+        cancelButton.addEventListener("click", () => {
+            statusForm.reset();
+            statusDialog.close();
+        });
+
+        book.setAttribute("data-id", books.id);
 
         removeButton.addEventListener("click", () => {
             let bookId = book.getAttribute("data-id");
@@ -66,10 +99,23 @@ function displayBooks() {
             displayBooks();
         });
 
+        editButton.addEventListener("click", () => {
+            selectedBookId = books.id;
+
+            const currentStatus = statusForm.querySelector(`input[name="status"][value="${books.status}"]`);
+
+            if (currentStatus) {
+                currentStatus.checked = true;
+            }
+
+            statusDialog.showModal();
+        });
+
         title.textContent = books.title;
         author.textContent = books.author;
         pages.textContent = books.pages;
         removeButton.textContent = "Remove Book";
+        editButton.textContent = "Edit";
 
         switch (books.status) {
             case "unread":
@@ -89,11 +135,13 @@ function displayBooks() {
         pages.classList.add("pages");
         status.classList.add("status");
         actions.classList.add("actions");
-        removeButton.classList.add("remove-button")
+        removeButton.classList.add("remove-button");
+        editButton.classList.add("edit-button");
 
         book.appendChild(title);
         book.appendChild(author);
         book.appendChild(pages);
+        status.appendChild(editButton);
         book.appendChild(status);
         actions.appendChild(removeButton);
         book.appendChild(actions);
@@ -110,6 +158,7 @@ function createNewBook() {
     let pages = dialogPages.value;
     let status = dialogStatus.value;
     let newBook = new Book(title, author, pages, status);
+
     addBookToLibrary(newBook);
     displayBooks();
 }
