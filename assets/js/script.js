@@ -2,7 +2,13 @@ const myLibrary = [];
 const darkhold = new Book("Darkhold", "Morgan le Fay", 224, false);
 const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, false);
 
-let bookList = document.querySelector(".books-list");
+const bookList = document.querySelector(".books-list");
+const addButton = document.querySelector(".add-button")
+const dialog = document.querySelector("dialog");
+const closeButton = document.querySelector("dialog button");
+
+addButton.addEventListener("click", () => dialog.showModal());
+closeButton.addEventListener("click", () => dialog.close());
 
 function Book(title, author, pages, hasRead) {
     this.title = title;

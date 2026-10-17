@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
     <link rel="stylesheet" href="./assets/css/styles.css">
     <script src="./assets/js/script.js" defer></script>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-text">Kamar-Taj Library</div>            
+            <div class="header-text">Kamar-Taj Library</div>
         </div>
 
-        <div class="books">
+        <div class="library">
             <div class="books-header">
                 <div class="label">Title</div>
                 <div class="label">Author</div>
@@ -23,7 +25,59 @@
             </div>
 
             <div class="books-list"></div>
+
+            <div class="add-button">
+                <button>Add New Book</button>
+            </div>
+
+            <dialog>
+                <form>
+                    <div class="form-header">
+                        Add New Book
+                    </div>
+
+                    <div class="input">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" placeholder="Book of Cagliostro" required>
+                    </div>
+
+                    <div class="input">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" placeholder="Cagliostro" required>
+                    </div>
+                    <div class="input">
+                        <label for="pages">Pages</label>
+                        <input type="text" inputmode="numeric" name="pages" id="pages" placeholder="32">
+                    </div>
+                    <div class="input">
+                        <fieldset>
+                            <legend>Reading Status</legend>
+
+                            <div>
+                                <input type="radio" id="unread" name="status" value="unread" checked />
+                                <label for="unread" class="radio-item">Not read yet</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="reading" name="status" value="reading" />
+                                <label for="reading" class="radio-item">Currently reading</label>
+                            </div>
+
+                            <div>
+                                <input type="radio" id="finished" name="status" value="finished" />
+                                <label for="finished" class="radio-item">Finished</label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="button">
+                        <button class="cancel" autofocus>Cancel</button>
+                        <button class="submit" autofocus>Add Book</button>
+                    </div>
+                </form>
+            </dialog>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,3 +1,46 @@
+* {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+dialog {
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+form {
+    width: 280px;
+    height: 420px;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+label:not(.radio-item)::after {
+    content: "*";
+    color: red
+}
+
+input {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+legend {
+    text-align: center;
+}
+
+button {
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+}
+
 .container {
     padding: 32px 100px;
 }
@@ -25,4 +68,50 @@
 .label {
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.add-button {
+    justify-self: end;
+    padding: 32px 0;
+
+    &>button {
+        background-color: rebeccapurple;
+        color: #fff;
+        padding: 16px;
+        border: none;
+        border-radius: 16px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    &>button:hover {
+        background-color: rgb(139, 72, 206);
+    }
+}
+
+
+.form-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.button {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+.cancel {
+    background-color: darkcyan;
+}
+
+.submit {
+    background-color: rebeccapurple;
 }
