@@ -1,5 +1,21 @@
 let myLibrary = [];
 let selectedBookId = null;
+
+class Book {
+    id = crypto.randomUUID();
+
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
+
+    changeStatus(newStatus) {
+        this.status = newStatus;
+    }
+}
+
 const darkhold = new Book("Darkhold", "Morgan le Fay", 224, "unread");
 const bookOfVishanti = new Book("Book of Vishanti", "Agamotto", 160, "unread");
 
@@ -49,18 +65,6 @@ addBookToLibrary(darkhold);
 addBookToLibrary(bookOfVishanti)
 
 displayBooks();
-
-function Book(title, author, pages, status) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-    this.id = crypto.randomUUID();
-}
-
-Book.prototype.changeStatus = function (newStatus) {
-    this.status = newStatus;
-}
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
